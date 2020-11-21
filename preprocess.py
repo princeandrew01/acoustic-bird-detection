@@ -44,9 +44,9 @@ def make_fbank(wav, fs=22050):
 
     return features
 
-def preprocess_data(the_dir):
+def preprocess_data():
     window_len = 2 # seconds
-
+    the_dir = "../drive/My Drive/Bird Sounds/"
     # Remove any positive label from a window where the call is shorter than this.
     minimum_call_seconds = 0.2 # seconds
 
