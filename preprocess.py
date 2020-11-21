@@ -58,7 +58,7 @@ def preprocess_data(the_dir="../drive/My Drive/Bird Sounds/", labels="Labels.csv
 
     print("Pre Processing")
     idx = 1
-    for f in glob.glob(the_dir + "*." + audi_ext):
+    for f in glob.glob(the_dir + "*." + audio_ext):
         split = path.splitext(path.basename(f))
         print ("[" + str(idx).zfill(5) + "] Processing: " + f + " (" + str(idx) + ")")
         s = split[0] + split[1]
