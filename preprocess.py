@@ -44,7 +44,7 @@ def make_fbank(wav, fs=22050):
 
     return features
 
-def preprocess_data():
+def preprocess_data(the_dir):
     window_len = 2 # seconds
 
     # Remove any positive label from a window where the call is shorter than this.
@@ -53,12 +53,12 @@ def preprocess_data():
     target = np.array([], dtype=np.int8)
     data = None
 
-    df = pd.read_csv("resources/ANTBOK_training_labels.csv")
+    df = pd.read_csv(the_dir + "Labels.csv")
     df["duration"] = df["end.time"] - df["start.time"]
     csv = df[df["duration"] > minimum_call_seconds]
 
     print("processing ...")
-    for f in glob.glob("../drive/My Drive/Bird Sounds/*.wav"):
+    for f in glob.glob(the_dir + "*.wav"):
         s = path.splitext(path.basename(f))[0].replace("_", "-") + '.mp3'
         boxes = csv[csv['filename'] == s]
     
