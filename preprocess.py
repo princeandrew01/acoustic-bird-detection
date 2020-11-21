@@ -58,7 +58,7 @@ def preprocess_data():
     csv = df[df["duration"] > minimum_call_seconds]
 
     print("processing ...")
-    for f in glob.glob("resources/training/clips/*.flac"):
+    for f in glob.glob("../drive/My Drive/Bird Sounds/*.wav"):
         s = path.splitext(path.basename(f))[0].replace("_", "-") + '.mp3'
         boxes = csv[csv['filename'] == s]
     
