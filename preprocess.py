@@ -44,7 +44,7 @@ def make_fbank(wav, fs=22050):
 
     return features
 
-def preprocess_data():
+def preprocess_data(the_dir="../drive/My Drive/Bird Sounds/", labels="Lables.csv", audio_ext="wav"):
     window_len = 2 # seconds
     the_dir = ""
     # Remove any positive label from a window where the call is shorter than this.
@@ -53,13 +53,16 @@ def preprocess_data():
     target = np.array([], dtype=np.int8)
     data = None
 
-    df = pd.read_csv("../drive/My Drive/Bird Sounds/Labels.csv")
+    df = pd.read_csv(the_dir + labels)
     df["duration"] = df["end.time"] - df["start.time"]
     csv = df[df["duration"] > minimum_call_seconds]
 
-    print("processing ...")
-    for f in glob.glob("../drive/My Drive/Bird Sounds/*.wav"):
-        s = path.splitext(path.basename(f))[0].replace("_", "-") + '.mp3'
+    print("Pre Processing")
+    idx = 1
+    for f in glob.glob(the_dir + "*." + audi_ext):
+        split = path.splitext(path.basename(f))
+        print ("[" + str(idx).zfill(5) + "] Processing: " + f + " (" + str(idx) + ")")
+        s = split[0] + split[1]
         boxes = csv[csv['filename'] == s]
     
         # read the audio file. if this is a stereo file, 
@@ -92,4 +95,7 @@ def preprocess_data():
                 data = np.array([[window, f, w]])
             else:
                 data = np.append(data, [[window, f, w]], axis=0)
+        idx += 1           
+    print("Preprocessing complete")
     return data, target
+    
